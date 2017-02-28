@@ -46,7 +46,7 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#devtool
      * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
      */
-    devtool: 'cheap-module-source-map',
+    devtool: 'eval-source-map',
 
     /**
      * Options affecting the output of the compilation.
@@ -123,7 +123,7 @@ module.exports = function (options) {
          */
         {
           test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
+          use: ['style-loader', 'css-loader'],
           include: [helpers.root('src', 'styles')]
         },
 
@@ -180,7 +180,7 @@ module.exports = function (options) {
         },
         dllDir: helpers.root('dll'),
         webpackConfig: webpackMergeDll(commonConfig({env: ENV}), {
-          devtool: 'cheap-module-source-map',
+          devtool: 'eval-source-map',
           plugins: []
         })
       }),

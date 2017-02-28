@@ -164,7 +164,7 @@ module.exports = function (options) {
          */
         {
           test: /\.scss$/,
-          use: ['to-string-loader', 'css-loader', 'sass-loader'],
+          use: ['to-string-loader', 'css-loader'],
           exclude: [helpers.root('src', 'styles')]
         },
 

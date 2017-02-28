@@ -141,7 +141,7 @@ module.exports = function (options) {
          */
         {
             test: /\.scss$/,
-            loader: ['raw-loader', 'sass-loader'],
+            loader: ['raw-loader'],
             exclude: [helpers.root('src/index.html')]
         },
 
