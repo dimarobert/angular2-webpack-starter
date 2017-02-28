@@ -1,0 +1,11 @@
+section {
+    background: red;
+}
+
+section div {
+    color: blue;
+}
+
+section span {
+    color: yellow;
+}

@@ -6,7 +6,11 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
+
+import { DomSanitizer } from '@angular/platform-browser';
 import { AppState } from './app.service';
+
+import { BehaviorSubject } from 'rxjs/Rx';
 
 /*
  * App Component
@@ -42,6 +46,11 @@ import { AppState } from './app.service';
       </a>
     </nav>
 
+
+    <div *ngFor="let htmlContent of sections | async">
+      <div [innerHTML]="htmlContent"></div>
+    </div>
+
     <main>
       <router-outlet></router-outlet>
     </main>
@@ -63,12 +72,25 @@ export class AppComponent implements OnInit {
   public name = 'Angular 2 Webpack Starter';
   public url = 'https://twitter.com/AngularClass';
 
+  private sections: BehaviorSubject<string>;
+
   constructor(
-    public appState: AppState
-  ) {}
+    public appState: AppState,
+    private _sanitizer: DomSanitizer
+  ) { }
 
   public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+    // console.log('Initial App State', this.appState.state);
+    this.getSections();
+  }
+
+  public getSections() {
+    let sectionsContent = (<any> window).mySections.map((idx, section) => {
+      let sanitizedHTML = this._sanitizer.bypassSecurityTrustHtml(section.outerHTML);
+      section.style.display = 'none';
+      return sanitizedHTML;
+    });
+    this.sections = new BehaviorSubject<string>(sectionsContent);
   }
 
 }
